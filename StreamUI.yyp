@@ -1,5 +1,8 @@
 {
   "resources": [
+    {"id":{"name":"StreamUI_config","path":"scripts/StreamUI_config/StreamUI_config.yy",},"order":0,},
+    {"id":{"name":"StreamUI_system","path":"scripts/StreamUI_system/StreamUI_system.yy",},"order":1,},
+    {"id":{"name":"obj_menu","path":"objects/obj_menu/obj_menu.yy",},"order":0,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":0,},
   ],
   "Options": [
@@ -33,6 +36,7 @@
     {"folderPath":"folders/Animation Curves.yy","order":12,"resourceVersion":"1.0","name":"Animation Curves","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Notes.yy","order":13,"resourceVersion":"1.0","name":"Notes","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Extensions.yy","order":14,"resourceVersion":"1.0","name":"Extensions","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/StreamUI.yy","order":2,"resourceVersion":"1.0","name":"StreamUI","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":-1,"resourceVersion":"1.3","name":"audiogroup_default","resourceType":"GMAudioGroup",},
