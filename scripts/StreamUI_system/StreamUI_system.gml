@@ -18,7 +18,7 @@ function StreamUICreateContainer(_x, _y, _width, _height) constructor
 	self.Pages = ds_map_create(); //Declare the Map of Pages that Container that themselves contain UI Elements.
 	#endregion
 	
-	#region //Dimension Getter Functions.
+	#region //Container Functions.
 	#region //GetXPosition()
 	GetXPosition = function()
 	{
@@ -43,14 +43,21 @@ function StreamUICreateContainer(_x, _y, _width, _height) constructor
 		return self.Height;
 	};
 	#endregion
+	#region //OnPageTransition()
+	OnPageTransition = function(_transition_sequence)
+	{
+		layer_sequence_play(_transition_sequence);
+	}
+	#endregion
 	#endregion
 	#region //Page Functions.
 	#region //CreatePage()
 	CreatePage = function(_id)
 	{
-		#region //Define a UI Page.
+		#region //Define a StreamUI Page.
 		var _page = 
 		{
+			ID_Num: ds_map_size(self.Pages),
 			Elements: ds_list_create()
 		};
 		#endregion
@@ -79,15 +86,30 @@ function StreamUICreateContainer(_x, _y, _width, _height) constructor
 	}
 	#endregion
 	#region //ActivatePage()
-	ActivatePage = function(_page_string)
+	ActivatePage = function(_page_string, _transition_sequence)
 	{
-		self.ActivePage = _page_string;
+		if (ds_map_exists(self.Pages, _page_string))
+		{
+			self.OldPage = self.ActivePage; //Set the old page to the (right now) current page before changing the active page.
+			self.ActivePage = _page_string; //Set the New Active Page.
+			
+			#region //If the sequence is provided (and is an actually sequence asset) then execute the page's OnTransitionIn function.
+			if (_transition_sequence != undefined)
+			{
+				if (sequence_exists(_transition_sequence) == true)
+				{
+					self.OnPageTransition(_transition_sequence);
+				}
+			}
+			#endregion
+		}
 	}
 	#endregion
 	#endregion
 	
 	#region //Create the Main Page and Return the Struct.
 	self.ActivePage = CreatePage("MainPage"); //The Current Page being shown/active.
+	self.OldPage = -1; //Used when doing a OnTransition function.
 	return self;
 	#endregion
 }
@@ -103,6 +125,7 @@ function StreamUIDestroyContainer(_container)
 	if (is_struct(_container))
 	{
 		delete _container;
+		return undefined;
 	}
 }
 #endregion
