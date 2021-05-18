@@ -1,13 +1,13 @@
-#region //StreamUICreateContainer()
-///@function StreamUICreateContainer(X, Y, Width, Height)
-///@description Creates a Container to hold all of the elements of the specific UI. (ex: Menu = New StreamUIContainer(10, 10, 400, 400)).
+#region //StreamUIContainer()
+///@function StreamUIContainer(X, Y, Width, Height)
+///@description Creates a Container to hold pages of UI Elements.
 ///@param {int} X
 ///@param {int} Y
 ///@param {int} Width
 ///@param {int} Height
 ///@return StreamUI Container
 
-function StreamUICreateContainer(_x, _y, _width, _height) constructor
+function StreamUIContainer(_x, _y, _width, _height) constructor
 {
 	#region //Declare the UI Container's Properties.
 	self.X = _x;		   //The X Position of the UI Container (X Position).
@@ -16,6 +16,9 @@ function StreamUICreateContainer(_x, _y, _width, _height) constructor
 	self.Height = _height; //The Height of the UI Container.
 
 	self.Pages = ds_map_create(); //Declare the Map of Pages that Container that themselves contain UI Elements.
+	self.ActivePage = -1;         //The Current Page being shown/active.
+	self.OldPage = -1;            //Used when doing a OnTransition function.
+	self.Transition = false;      //When transitioning to a new page, set this to true.
 	#endregion
 	
 	#region //Container Functions.
@@ -51,39 +54,39 @@ function StreamUICreateContainer(_x, _y, _width, _height) constructor
 	#endregion
 	#endregion
 	#region //Page Functions.
-	#region //CreatePage()
-	CreatePage = function(_id)
+ 	#region //GetPage()
+	GetPage = function(_key)
 	{
-		#region //Define a StreamUI Page.
-		var _page = 
-		{
-			ID_Num: ds_map_size(self.Pages),
-			Elements: ds_list_create()
-		};
-		#endregion
-		#region //Add The Page to the ds_map and return the ID.
-		ds_map_set(self.Pages, _id, _page); //Add the page to the ds_map.
-		return _id; //Return the Page ID.
-		#endregion
-	}
-	#endregion
-	#region //DestroyPage()
-	DestroyPage = function(_id)
-	{
-		ds_map_delete(self.Pages, _id);
+		return ds_map_find_value(self.Pages, _key);
 	};
 	#endregion
- 	#region //GetPage()
-	GetPage = function(_id)
+	#region //GetPageID()
+	GetPageID = function(_id_num)
 	{
-		return ds_map_find_value(self.Pages, _id);
+		var _array = ds_map_keys_to_array(self.Pages);
+	
+		for (var i = 0; i < array_length(_array); i++)
+		{
+			var _page_struct = ds_map_find_value(self.Pages, _array[i]);
+				
+			if (_page_struct.ID_Num == _id_num)
+			{
+				return _page_struct;
+				break;
+			}
+			else if (i == array_length(_array))
+			{
+				return undefined;
+				break;
+			}
+		}		
 	}
 	#endregion
 	#region //GetActivePage()
 	GetActivePage = function()
 	{
 		return self.ActivePage;
-	}
+	};
 	#endregion
 	#region //ActivatePage()
 	ActivatePage = function(_page_string, _transition_sequence)
@@ -98,34 +101,27 @@ function StreamUICreateContainer(_x, _y, _width, _height) constructor
 			{
 				if (sequence_exists(_transition_sequence) == true)
 				{
+					self.Transition = true;
 					self.OnPageTransition(_transition_sequence);
 				}
 			}
 			#endregion
 		}
-	}
+	};
 	#endregion
 	#endregion
-	
-	#region //Create the Main Page and Return the Struct.
-	self.ActivePage = CreatePage("MainPage"); //The Current Page being shown/active.
-	self.OldPage = -1; //Used when doing a OnTransition function.
+
 	return self;
-	#endregion
 }
 #endregion
-#region //StreamUIDestroyContainer()
-///@function StreamUIDestroyContainer(_container)
-///@description Destroy's a UI Container and all of it's contents.
-///@param {Struct} UI Container
-///@return N/A
+#region //StreamUIPage()
+///@function StreamUIPage(_id_name)
+///@description Creates a Page Struct containing UI Elements.
+///@return StreamUI Page
 
-function StreamUIDestroyContainer(_container)
+function StreamUIPage(_id_name) constructor
 {
-	if (is_struct(_container))
-	{
-		delete _container;
-		return undefined;
-	}
+	Elements = ds_list_create();		
+	return self;
 }
 #endregion
