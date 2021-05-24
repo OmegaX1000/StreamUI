@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "UI Creation",
-    "path": "folders/Scripts/StreamUI/UI Creation.yy",
+    "name": "Main",
+    "path": "folders/Scripts/StreamUI/System/Main.yy",
   },
   "resourceVersion": "1.0",
-  "name": "StreamUIContainer",
+  "name": "class_StreamPage",
   "tags": [],
   "resourceType": "GMScript",
 }

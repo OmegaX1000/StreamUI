@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "System",
-    "path": "folders/Scripts/StreamUI/System.yy",
+    "name": "Main",
+    "path": "folders/Scripts/StreamUI/System/Main.yy",
   },
   "resourceVersion": "1.0",
-  "name": "StreamUI_system",
+  "name": "class_StreamElement",
   "tags": [],
   "resourceType": "GMScript",
 }

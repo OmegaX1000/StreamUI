@@ -8,8 +8,13 @@ function CreateStreamUIPage(_id)
 {
 	with (other)
 	{
-		var _page = new StreamUIPage(_id);
-		ds_map_set(other.Pages, _id, _page);
+		#region //Make sure that the struct that this function is called in is a StreamUI Container.
+		if (instanceof(other) == "StreamUIContainer")
+		{
+			var _page = new StreamUIPage(_id);
+			ds_map_set(other.Pages, _id, _page);
+		}
+		#endregion
 	}
 	
 	return _id;

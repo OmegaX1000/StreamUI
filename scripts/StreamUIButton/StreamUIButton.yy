@@ -6,7 +6,7 @@
     "path": "folders/Scripts/StreamUI/UI Creation.yy",
   },
   "resourceVersion": "1.0",
-  "name": "StreamUIContainer",
+  "name": "StreamUIButton",
   "tags": [],
   "resourceType": "GMScript",
 }
