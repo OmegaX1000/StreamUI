@@ -1,6 +1,6 @@
 #region //CreateStreamUIButton()
 ///@function CreateStreamUIButton()
-///@description
+///@description Creates a StreamUI Button Struct.
 ///@return StreamUI Button
 
 function CreateStreamUIButton()
