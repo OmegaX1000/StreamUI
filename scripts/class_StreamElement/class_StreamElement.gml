@@ -1,9 +1,11 @@
-#region //StreamUIElement()
 ///@function StreamUIElement()
+///@description A template for every element created.
+///@return StreamUI Element
 
 function StreamUIElement() constructor
 {
 	Element_Type = -1;
+	Enable = ELEMENT_CREATION_ACTIVE;
 	
 	#region //OnEnable()
 	onEnable = function()
@@ -26,4 +28,3 @@ function StreamUIElement() constructor
 	
 	return self;
 }
-#endregion

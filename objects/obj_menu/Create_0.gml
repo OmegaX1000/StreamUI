@@ -7,6 +7,6 @@ with (MenuUI)
 {
 	with (GetPage("MainPage"))
 	{
-		Button1 = CreateStreamUIButton();
+		CreateStreamUIButton();
 	}
 }

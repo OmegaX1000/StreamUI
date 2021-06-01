@@ -1,4 +1,3 @@
-#region //CreateStreamUIButton()
 ///@function CreateStreamUIButton()
 ///@description Creates a StreamUI Button Struct.
 ///@return StreamUI Button
@@ -15,4 +14,3 @@ function CreateStreamUIButton()
 		}
 	}
 }
-#endregion
